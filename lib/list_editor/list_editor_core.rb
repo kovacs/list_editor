@@ -50,10 +50,14 @@ module ListEditor
     # list_id - The id of the <ul> that's generated. Default is 'classname'_list
     # description - The description used when you mouseover add/edit/delete links
     #
+    
+    def list_editor_class_options
+      @@list_editor_options ||= HashWithIndifferentAccess.new
+    end
+    
     def list_editor(class_to_edit, form_partial, options={})
       before_filter :find_object, :only => [:edit, :update, :destroy, :show]
 
-      @@list_editor_options ||= HashWithIndifferentAccess.new
 
       options = {:display_property => 'to_s',
                                :view_properties => [],
@@ -66,7 +70,7 @@ module ListEditor
                                :hide => false,
                                :description => class_to_edit.to_s.demodulize,
                                :size => ''}.merge(options)
-      @@list_editor_options[controller_name] = {'form' => form_partial,
+      list_editor_class_options[controller_name] = {'form' => form_partial,
                                                 'class' => class_to_edit,
                                                 'options' => options}
 
@@ -78,15 +82,15 @@ module ListEditor
 
         # attributes used when dynamically CRUDing
         def klass
-          @@list_editor_options[controller_name]['class']
+          list_editor_class_options[controller_name]['class']
         end
 
         def list_editor_form
-          @@list_editor_options[controller_name]['form']
+          list_editor_class_options[controller_name]['form']
         end
 
         def list_editor_options
-          @@list_editor_options[controller_name]['options']
+          list_editor_class_options[controller_name]['options']
         end
       end
 
