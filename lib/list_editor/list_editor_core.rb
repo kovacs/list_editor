@@ -74,7 +74,7 @@ module ListEditor
       module_eval do
         # install CRUD methods that are generic and dynamic
         include ListEditor::InstanceMethods
-        include Helpers::ListEditorHelper
+        include ListEditorHelper
 
         # attributes used when dynamically CRUDing
         def klass
