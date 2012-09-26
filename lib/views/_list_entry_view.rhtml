@@ -1,0 +1,10 @@
+<%if props.size > 1%>
+	<%=build_container_start('', 'blank_table_view')%>
+		<%props.each do |prop|%>
+		<%=build_name_value(prop.to_s.humanize, better_simple_format(auto_link_new(h(list_entry_view.send(prop).to_s))), false, false, true)%>							
+		<%end%>
+	<%=close_container%>
+<%elsif props.size == 1%>
+  <%=better_simple_format(auto_link_new(h(list_entry_view.send(props[0]).to_s)))%>
+<%end%>
+	

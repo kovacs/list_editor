@@ -1,0 +1,32 @@
+<%if edit_object.new_record?
+	button = 'Add'
+  else
+	button = 'Save'
+  end
+%>
+<div>
+	<%=render :partial => 'list_editor/dialog_header', :locals => {:title => title}%>           
+	<div style='padding: 20px; '>
+      <div id='new' class='ref_panel' style='padding-left: 10px; padding-right: 10px; border-top: 1px solid; display: block;'>
+         <% remote_form_for edit_object, :url => url do |f| %>
+            <div id='dialog_body'>
+            <%= render :partial => 'list_editor/dialog_body', :locals => {:edit_object => edit_object, 
+                                                                          :form_partial => form_partial,
+                                                                          :f => f} %>
+            </div>                                                                             
+            <%= render :partial => 'list_editor/required' %>
+
+            <div id='button_panel'>
+              <%=submit_tag button%> <a href="#" class="lbAction button" rel="deactivate">Cancel</a>		
+              <%=busy_icon%>
+            </div>
+         <% end %>
+      </div>	
+	</div> <!-- end of container div -->
+</div> <!-- end of topmost container -->
+
+<script language='javascript'>
+<%if @first_field%>
+  $('<%=@first_field%>').focus();
+<%end%>
+</script>

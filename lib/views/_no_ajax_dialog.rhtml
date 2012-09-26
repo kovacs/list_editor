@@ -1,0 +1,33 @@
+<%if @edit
+	url = {:action => action, :id => edit_object.id}
+	button = 'Save'
+  else
+	url = {:action => action}
+	button = 'Add'
+  end
+%>
+<head>
+
+</head>
+<div>	                   
+	<%=render :partial => 'shared/list_editor/dialog_header', :locals => {:title => title, :uses_lbon => true}%>           
+	<div style='padding: 20px; '>
+				<div id='new' class='ref_panel' style='padding-left: 10px; padding-right: 10px; border-top: 1px solid; display: block;'>
+					<%form_tag(url, {:id => 'dialog_form', :name => 'dialog_form', :onsubmit => "var valid3 = new Validation('dialog_form', {onSubmit:false});  if(!valid3.validate()) {return false;} else {this.submit();}"}) do%>
+					<table class='blank_table' style='margin: 10px;'>
+						<%=render :partial => form_partial, :object => edit_object%>
+		     		</table>
+					<%= render :partial => 'shared/list_editor/required' %>
+					<div id='button_panel'>
+						<%=submit_tag button%> <a href="#" class="lbAction button" rel="deactivate">Cancel</a>		
+						<%=busy_icon%>
+					</div>
+					<%end%>
+				</div>	
+	</div> <!-- end of container div -->
+</div> <!-- end of topmost container -->
+
+<script language='javascript'>
+//new Fabtabs('tabs');
+$('<%=@first_field%>').focus();
+</script>

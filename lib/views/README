@@ -1,0 +1,1 @@
+This is the beginnings of an attempt to modularize the modal dialog code into a plugin so that it can be integrated with the ajaxscaffold plugin. Currently you can setup a controller to add/edit with these templates

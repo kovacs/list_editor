@@ -1,0 +1,10 @@
+<div id='dialog_status'>
+  <% if edit_object.errors.count > 0 %>
+     Please correct the following errors with this <%= edit_object.class.to_s %><br/>
+     <% edit_object.errors.each do |att, msg| %>
+         <%= att %> <%= msg %><br/>
+     <% end %>
+  <% end %>
+</div>
+
+  <%=render :partial => form_partial, :object => edit_object, :locals => {:f => f} %>

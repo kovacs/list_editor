@@ -1,0 +1,56 @@
+<%  url = params.merge({:action => action, :id => index})
+	button = 'Save'
+%>
+<div>	                   
+	<%=render :partial => 'shared/list_editor/dialog_header', :locals => {:title => title}%>           
+	<div style='padding: 10px; '>
+		<ul id='tabs' > 
+	       <li><a style='padding-bottom: 0px;' class='tab' href='#new' >Create new</a></li>
+	<%if authenticated?%>
+		   <li><a style='padding-bottom: 0px;' class='tab' href='#existing' >Add from <%=collection_name%></a></li>
+	<%end%>
+		</ul>
+			
+		<div id='new' class='ref_panel' style='padding-left: 50px; padding-right: 10px;'>
+			<span id='dialog_status'></span>
+			<%form_remote_tag :html => {:id => 'add_ref_form', :name => 'add_ref_form'}, 
+				:url => url do%>
+			<table class='blank_table' style='margin: 10px;'>
+				<%=render :partial => form_partial, :object => edit_object%>
+     		</table>
+			<%= render :partial => 'shared/list_editor/required' %>
+			<div id='button_panel'>
+				<%=submit_tag button%> <a href="#" class="lbAction button" rel="deactivate">Cancel</a>		
+				<%=busy_icon%>
+			</div>
+			<%end%>
+		</div>
+		<%if authenticated?%>
+		<div id='existing' style='padding: 10px; ' class='ref_panel' >
+			<div style='border: 1px solid;'>
+				<div class='sectionHeader greenHeader' style='padding: 5px 0 0 5px;'>
+					Your saved <%=collection_name%>
+				</div>
+				<div style='height : 220px; overflow: auto; '>
+					<ul class='pw_list'>
+						<%=saved_list%>
+					</ul>
+				</div>
+			</div>
+			<div id='button_panel' style='margin-top: 10px;'>
+			<a href="#" class="lbAction button" rel="deactivate">Cancel</a>
+			</div>
+		</div>	
+		<%end%>
+	</div> <!-- end of container div -->
+</div> <!-- end of topmost container -->
+
+<script language='javascript'>
+<% if !@edit %>
+  new Fabtabs('tabs');
+<%end%>
+<%if @first_field%>
+  $('<%=@first_field%>').focus();
+<%end%>
+
+</script>
